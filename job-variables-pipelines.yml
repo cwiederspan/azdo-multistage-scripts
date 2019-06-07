@@ -9,18 +9,22 @@ trigger:
 stages:
 - stage: Stage_1
   jobs:
-  - job: Job S1.J1
+  - job: Job_S1_J1
+    displayName: Stage 1 Job 1
     steps:
     - bash: echo "Stage 1, Job 1"
-  - job: Job S1.J2
+  - job: Job_S1_J2
+    displayName: Stage 1 Job 2
     steps:
     - bash: echo "Stage 1, Job 2"
 
 - stage: Stage_2
   jobs:
-  - job: Job S2.J1
+  - job: Job_S2_J1
+    displayName: Stage 2 Job 1
     steps:
     - bash: echo "Stage 2, Job 1"
-  - job: Job S1.J2
+  - job: Job_S1_J2
+    displayName: Stage 2 Job 2
     steps:
     - bash: echo "Stage 2, Job 2"
