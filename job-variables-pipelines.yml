@@ -25,13 +25,13 @@ stages:
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
     dependsOn: Job_S1_J1
+    variables:
+      dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
     steps:
-    - script: echo $(setvarStep.myOutputVar)
+    - script: echo $(dummyVar)
     - bash: |
         echo "Stage 1, Job 2"
-        echo $(setvarStep.myOutputVar)
-        echo $MYOUTPUTVAR
-        echo $[ dependencies.A.outputs['setvarStep.myOutputVar'] ]
+        echo $(dummyVar)
 
 # - stage: Stage_2
 #   displayName: Stage 2
