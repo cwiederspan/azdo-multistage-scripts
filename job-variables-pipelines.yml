@@ -38,20 +38,20 @@ stages:
         echo "$(testVariable)"
         echo $(dummyVar)
 
-- stage: Stage_2
-  displayName: Stage 2
-  jobs:
-  - job: Job_S2_J1
-    displayName: Stage 2 Job 1
-    steps:
-    - bash: echo "Stage 2, Job 1"
-  - job: Job_S2_J2
-    displayName: Stage 2 Job 2
-    dependsOn: Stage_1.Job_S1_J1
-    variables:
-      dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
-    steps:
-    - script: echo $(dummyVar)
-    - bash: |
-        echo "Stage 2, Job 2"
-        echo $(dummyVar)
+# - stage: Stage_2
+#   displayName: Stage 2
+#   jobs:
+#   - job: Job_S2_J1
+#     displayName: Stage 2 Job 1
+#     steps:
+#     - bash: echo "Stage 2, Job 1"
+#   - job: Job_S2_J2
+#     displayName: Stage 2 Job 2
+#     dependsOn: Stage_1.Job_S1_J1
+#     variables:
+#       dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
+#     steps:
+#     - script: echo $(dummyVar)
+#     - bash: |
+#         echo "Stage 2, Job 2"
+#         echo $(dummyVar)
