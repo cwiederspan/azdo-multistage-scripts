@@ -23,6 +23,7 @@ stages:
         echo "Stage 1, Job 1"
         echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
         echo "##vso[task.setvariable variable=testVariable;]Blah"
+        echo "$(testVariable)"
         echo "Success"
       name: setvarStep
 
@@ -35,7 +36,7 @@ stages:
     - script: echo $(dummyVar)
     - bash: |
         echo "Stage 1, Job 2"
-        echo "$(testVariable)"
+        echo "Test Variable is $(testVariable)"
         echo $(dummyVar)
 
 # - stage: Stage_2
