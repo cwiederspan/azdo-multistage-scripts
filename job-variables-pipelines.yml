@@ -41,7 +41,6 @@ stages:
     - bash: |
         echo "Stage 1, Job 2"
         echo "dummyVar is $(dummyVar)"
-        echo "dummyVar is $(dummyVar)
 
 - stage: Stage_2
   displayName: Stage 2
@@ -54,7 +53,7 @@ stages:
 
   - job: Job_S2_J2
     displayName: Stage 2 Job 2
-    # dependsOn: Stage_1.Job_S1_J1
+    dependsOn: Job_S1_J1
     variables:
       dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
     steps:
