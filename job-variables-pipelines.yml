@@ -35,6 +35,7 @@ stages:
 
 - stage: Stage_2
   displayName: Stage 2
+  dependsOn: Stage_1
   jobs:
   - job: Job_S2_J1
     displayName: Stage 2 Job 1
