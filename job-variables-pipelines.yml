@@ -21,23 +21,23 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
-        echo "##vso[task.setvariable variable=testVariable;]Blah"
+        # echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
+        echo "##vso[setvariable variable=testVariable;]Blah"
         echo "$(testVariable)"
         echo "Success"
       name: setvarStep
 
-  - job: Job_S1_J2
-    displayName: Stage 1 Job 2
-    dependsOn: Job_S1_J1
-    variables:
-      dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
-    steps:
-    - script: echo $(dummyVar)
-    - bash: |
-        echo "Stage 1, Job 2"
-        echo "Test Variable is $(testVariable)"
-        echo $(dummyVar)
+  # - job: Job_S1_J2
+  #   displayName: Stage 1 Job 2
+  #   dependsOn: Job_S1_J1
+  #   variables:
+  #     dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
+  #   steps:
+  #   - script: echo $(dummyVar)
+  #   - bash: |
+  #       echo "Stage 1, Job 2"
+  #       echo "Test Variable is $(testVariable)"
+  #       echo $(dummyVar)
 
 # - stage: Stage_2
 #   displayName: Stage 2
