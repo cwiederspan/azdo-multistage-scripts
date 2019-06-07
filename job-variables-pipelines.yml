@@ -6,9 +6,6 @@ trigger:
     include:
     - job-variables-pipelines.yml
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 stages:
 - stage: Stage_1
   jobs:
