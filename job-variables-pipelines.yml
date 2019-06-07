@@ -25,8 +25,8 @@ stages:
         # echo "##vso[setvariable variable=testVariable;]Blah"
         # echo "$(testVariable)"
         echo "$(myOutputVar)"
-        echo "Output variable is $[outputs['setvarStep.myOutputVar']]"
-        outputs['setvarStep.myOutputVar']
+        echo "Output variable 1 is $[outputs['myOutputVar']]"
+        echo "Output variable 2 is $[outputs['setvarStep.myOutputVar']]"
         echo "Success"
       name: setvarStep
       displayName: Set Variable Step
