@@ -10,29 +10,37 @@ stages:
 
 - stage: Stage_1
   displayName: Stage 1
+
   jobs:
+
   - job: Job_S1_J1
     displayName: Stage 1 Job 1
     steps:
-    - bash: |
+    - script: |
         echo "Stage 1, Job 1"
         echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
+        echo "Success"
       name: setvarStep
+
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
+    dependsOn: Job_S1_J1
     steps:
+    - script: echo $(setvarStep.myOutputVar)
     - bash: |
         echo "Stage 1, Job 2"
         echo $(setvarStep.myOutputVar)
+        echo $MYOUTPUTVAR
+        echo $[ dependencies.A.outputs['setvarStep.myOutputVar'] ]
 
-- stage: Stage_2
-  displayName: Stage 2
-  jobs:
-  - job: Job_S2_J1
-    displayName: Stage 2 Job 1
-    steps:
-    - bash: echo "Stage 2, Job 1"
-  - job: Job_S2_J2
-    displayName: Stage 2 Job 2
-    steps:
-    - bash: echo "Stage 2, Job 2"
+# - stage: Stage_2
+#   displayName: Stage 2
+#   jobs:
+#   - job: Job_S2_J1
+#     displayName: Stage 2 Job 1
+#     steps:
+#     - bash: echo "Stage 2, Job 1"
+#   - job: Job_S2_J2
+#     displayName: Stage 2 Job 2
+#     steps:
+#     - bash: echo "Stage 2, Job 2"
