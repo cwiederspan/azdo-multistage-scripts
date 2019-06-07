@@ -19,7 +19,7 @@ stages:
     steps:
     - bash: echo "Stage 1, Job 2"
 
-- stage: "Stage 2"
+- stage: Stage_2
   jobs:
   - job: Job S2.J1
     steps:
