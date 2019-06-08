@@ -18,13 +18,13 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "My Test Value Goes Here" > ./outputs.txt
+        echo "My Test Value Goes Here" > $(Build.ArtifactStagingDirectory)/outputs.txt
         cat $(Build.ArtifactStagingDirectory)/outputs.txt
       displayName: Write Pipeline Artifact
     - task: PublishPipelineArtifact@0
       displayName: Publish Pipeline Artifact
-      inputs:
-        artifactName: 'MyOutputs'
+      # inputs:
+      #   artifactName: 'MyOutputs'
         # targetPath: '$(Build.ArtifactStagingDirectory)/outputs.txt'
 
   - job: Job_S1_J2
