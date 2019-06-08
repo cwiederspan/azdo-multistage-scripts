@@ -35,7 +35,7 @@ stages:
     - task: DownloadPipelineArtifact@0
       displayName: Prove Pipeline Artifact in Same Stage
       inputs:
-    #     artifactName: 'MyOutputs'
+        artifactName: 'MyOutputs'
     #     targetPath: .
     - script: |
         ls $(Build.ArtifactStagingDirectory)
