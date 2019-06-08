@@ -21,7 +21,7 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "My Test Value Goes Here" > ./outputs.txt
+        echo "*** My Test Value Goes Here ***" > ./outputs.txt
         cat ./outputs.txt
       displayName: Build Pipeline Artifacts
     - task: PublishPipelineArtifact@0
