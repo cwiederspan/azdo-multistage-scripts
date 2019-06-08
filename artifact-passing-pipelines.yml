@@ -24,8 +24,8 @@ stages:
       displayName: Write Pipeline Artifact
     - task: PublishPipelineArtifact@0
       displayName: Publish Pipeline Artifact
-      # inputs:
-      #   artifactName: 'MyOutputs'
+      inputs:
+        artifactName: 'MyOutputs'
         # targetPath: '$(Build.ArtifactStagingDirectory)/outputs.txt'
 
   - job: Job_S1_J2
@@ -33,8 +33,8 @@ stages:
     dependsOn: Job_S1_J1
     steps:
     - task: DownloadPipelineArtifact@0
-    #   displayName: Prove Pipeline Artifact in Same Stage
-    #   inputs:
+      displayName: Prove Pipeline Artifact in Same Stage
+      inputs:
     #     artifactName: 'MyOutputs'
     #     targetPath: .
     - script: |
