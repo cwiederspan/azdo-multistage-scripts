@@ -27,7 +27,6 @@ stages:
     - task: PublishPipelineArtifact@0
       displayName: Publish Pipeline Artifacts
       inputs:
-        # artifactName: 'MyOutputs'
         targetPath: './outputs.txt'
 
   - job: Job_S1_J2
@@ -36,27 +35,21 @@ stages:
     steps:
     - task: DownloadPipelineArtifact@0
       displayName: Download Pipeline Artifacts
-      # inputs:
-        # artifactName: 'MyOutputs'
-        # targetPath: $(Pipeline.Workspace)
     - script: |
         ls .
-        # ls $(Pipeline.Workspace)
         cat ./outputs.txt
       displayName: Check Results
 
-# - stage: Stage_2
-#   displayName: Stage 2
-#   jobs:
+- stage: Stage_2
+  displayName: Stage 2
+  jobs:
 
-#   - job: Job_S2_J1
-#     displayName: Stage 2 Job 1
-#     steps:
-#     - task: DownloadPipelineArtifact@0
-#       displayName: Prove Pipeline Artifact in Different Stage
-#       inputs:
-#         artifactName: 'MyOutputs'
-#         targetPath: .
-#     - script: |
-#         ls .
-#         cat ./outputs.txt
+  - job: Job_S2_J1
+    displayName: Stage 2 Job 1
+    steps:
+    - task: DownloadPipelineArtifact@0
+      displayName: Download Pipeline Artifacts
+    - script: |
+        ls .
+        cat ./outputs.txt
+      displayName: Check Results
