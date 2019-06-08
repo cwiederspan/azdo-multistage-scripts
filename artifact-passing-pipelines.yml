@@ -39,7 +39,7 @@ stages:
     #     targetPath: .
     - script: |
       ls $(Build.ArtifactStagingDirectory)
-      cat $(Build.ArtifactStagingDirectory)/outputs.txt
+      # cat $(Build.ArtifactStagingDirectory)/outputs.txt
 
 # - stage: Stage_2
 #   displayName: Stage 2
