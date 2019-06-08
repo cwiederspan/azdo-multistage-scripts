@@ -36,7 +36,7 @@ stages:
       displayName: Prove Pipeline Artifact in Same Stage
       inputs:
         artifactName: 'MyOutputs'
-    #     targetPath: .
+        targetPath: $(Build.ArtifactStagingDirectory)
     - script: |
         ls $(Build.ArtifactStagingDirectory)
         cat $(Build.ArtifactStagingDirectory)/outputs.txt
