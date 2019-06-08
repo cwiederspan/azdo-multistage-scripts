@@ -31,7 +31,7 @@ stages:
     displayName: Stage 1 Job 2
     dependsOn: Job_S1_J1
     steps:
-    # - task: DownloadPipelineArtifact@0
+    - task: DownloadPipelineArtifact@0
     #   displayName: Prove Pipeline Artifact in Same Stage
     #   inputs:
     #     artifactName: 'MyOutputs'
