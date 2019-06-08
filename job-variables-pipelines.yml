@@ -35,7 +35,7 @@ stages:
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'Outputs'
-        targetPath: './output'
+        targetPath: './outputs.txt'
 
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
