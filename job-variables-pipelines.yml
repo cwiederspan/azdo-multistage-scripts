@@ -25,11 +25,10 @@ stages:
         # echo "##vso[setvariable variable=testVariable;]Blah"
         # echo "$(testVariable)"
         # echo "$(myOutputVar)"                                            # DOES NOT WORK
-        echo "Output variable 1 is $[outputs['myOutputVar']]"              # This does not error, but doesn't write out the correct value
+        # echo "Output variable 1 is $[outputs['myOutputVar']]"              # This does not error, but doesn't write out the correct value
         #echo "Output variable 2 is $[outputs['setvarStep.myOutputVar']]"  # DOES NOT WORK
-        mkdir ./output
-        echo "Blabity Blah" > ./output/variables.txt
-        cat ./output/variables.txt
+        echo "Blabity Blah" > ./outputs.txt
+        cat ./outputs.txt
         echo "Success"
       name: setvarStep
       displayName: Set Variable Step
@@ -37,6 +36,20 @@ stages:
       inputs:
         artifactName: 'Outputs'
         targetPath: './output'
+
+  - job: Job_S1_J2
+    displayName: Stage 1 Job 2
+    dependsOn: Job_S1_J1
+    steps:
+    - task: DownloadPipelineArtifact@0
+      inputs:
+        artifactName: 'Outputs'
+        targetPath: .
+    - script: cat ./outputs.txt 
+    # - script: echo $(dummyVar)
+    - bash: |
+        echo "Stage 1, Job 2"
+        # echo "dummyVar is $(dummyVar)"
         
   # - job: Job_S1_J2
   #   displayName: Stage 1 Job 2
