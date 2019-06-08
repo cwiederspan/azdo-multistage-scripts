@@ -19,6 +19,7 @@ stages:
     - script: |
         echo "Stage 1, Job 1"
         echo "My Test Value Goes Here" > $(Build.ArtifactStagingDirectory)/outputs.txt
+        ls $(Build.ArtifactStagingDirectory)
         cat $(Build.ArtifactStagingDirectory)/outputs.txt
       displayName: Write Pipeline Artifact
     - task: PublishPipelineArtifact@0
@@ -36,7 +37,9 @@ stages:
     #   inputs:
     #     artifactName: 'MyOutputs'
     #     targetPath: .
-    - script: cat $(Build.ArtifactStagingDirectory)/outputs.txt
+    - script: |
+      ls $(Build.ArtifactStagingDirectory)
+      cat $(Build.ArtifactStagingDirectory)/outputs.txt
 
 # - stage: Stage_2
 #   displayName: Stage 2
