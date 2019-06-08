@@ -6,6 +6,9 @@ trigger:
     include:
     - artifact-passing-pipelines.yml
 
+variables:
+- skipComponentGovernanceDetection: true
+
 stages:
 
 - stage: Stage_1
@@ -36,10 +39,10 @@ stages:
       displayName: Prove Pipeline Artifact in Same Stage
       inputs:
         artifactName: 'MyOutputs'
-        targetPath: '$(Build.ArtifactStagingDirectory)'
+        targetPath: .
     - script: |
-        ls $(Build.ArtifactStagingDirectory)
-        cat $(Build.ArtifactStagingDirectory)/outputs.txt
+        ls .
+        cat ./outputs.txt
 
 # - stage: Stage_2
 #   displayName: Stage 2
