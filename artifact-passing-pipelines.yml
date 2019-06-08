@@ -34,14 +34,14 @@ stages:
     displayName: Stage 1 Job 2
     dependsOn: Job_S1_J1
     steps:
-    - task: DownloadPipelineArtifact@0
-      displayName: Download Pipeline Artifacts
-      inputs:
-        artifactName: 'MyOutputs'
-        # targetPath: $(Pipeline.Workspace)
+    # - task: DownloadPipelineArtifact@0
+    #   displayName: Download Pipeline Artifacts
+    #   inputs:
+    #     artifactName: 'MyOutputs'
+    #     # targetPath: $(Pipeline.Workspace)
     - script: |
         ls .
-        ls $(Pipeline.Workspace)
+        # ls $(Pipeline.Workspace)
         cat ./outputs.txt
       displayName: Check Results
 
