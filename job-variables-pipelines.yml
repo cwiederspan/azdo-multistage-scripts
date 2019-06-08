@@ -27,7 +27,8 @@ stages:
         # echo "$(myOutputVar)"                                            # DOES NOT WORK
         echo "Output variable 1 is $[outputs['myOutputVar']]"              # This does not error, but doesn't write out the correct value
         #echo "Output variable 2 is $[outputs['setvarStep.myOutputVar']]"  # DOES NOT WORK
-        echo "Blabity Blah" > $(Build.ArtifactStagingDirectory)/output.txt
+        mkdir ./output
+        echo "Blabity Blah" > ./output/variables.txt
         cat ./output/variables.txt
         echo "Success"
       name: setvarStep
