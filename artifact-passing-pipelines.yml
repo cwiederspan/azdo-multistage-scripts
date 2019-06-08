@@ -6,9 +6,6 @@ trigger:
     include:
     - artifact-passing-pipelines.yml
 
-variables:
-  skipComponentGovernanceDetection: true
-
 stages:
 
 - stage: Stage_1
@@ -21,15 +18,14 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "My Test Value Goes Here" > $(Build.ArtifactStagingDirectory)/outputs.txt
-        ls $(Build.ArtifactStagingDirectory)
-        cat $(Build.ArtifactStagingDirectory)/outputs.txt
+        echo "My Test Value Goes Here" > ./outputs.txt
+        cat ./outputs.txt
       displayName: Write Pipeline Artifact
     - task: PublishPipelineArtifact@0
       displayName: Publish Pipeline Artifact
       inputs:
         artifactName: 'MyOutputs'
-        # targetPath: '$(Build.ArtifactStagingDirectory)/outputs.txt'
+        targetPath: './outputs.txt'
 
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
@@ -44,16 +40,18 @@ stages:
         ls .
         cat ./outputs.txt
 
-# - stage: Stage_2
-#   displayName: Stage 2
-#   jobs:
+- stage: Stage_2
+  displayName: Stage 2
+  jobs:
 
-#   - job: Job_S2_J1
-#     displayName: Stage 2 Job 1
-#     steps:
-#     - task: DownloadPipelineArtifact@0
-#       displayName: Prove Pipeline Artifact in Different Stage
-#       inputs:
-#         artifactName: 'MyOutputs'
-#         targetPath: .
-#     - script: cat ./outputs.txt
+  - job: Job_S2_J1
+    displayName: Stage 2 Job 1
+    steps:
+    - task: DownloadPipelineArtifact@0
+      displayName: Prove Pipeline Artifact in Different Stage
+      inputs:
+        artifactName: 'MyOutputs'
+        targetPath: .
+    - script: |
+        ls .
+        cat ./outputs.txt
