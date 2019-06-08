@@ -53,7 +53,9 @@ stages:
 
   - job: Job_S2_J2
     displayName: Stage 2 Job 2
-    dependsOn: Job_S1_J1
+    dependsOn: 
+    - Stage_1
+    - Job_S1_J1
     variables:
       dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
     steps:
