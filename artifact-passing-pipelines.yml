@@ -7,7 +7,7 @@ trigger:
     - artifact-passing-pipelines.yml
 
 variables:
-- skipComponentGovernanceDetection: true
+  skipComponentGovernanceDetection: true
 
 stages:
 
