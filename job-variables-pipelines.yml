@@ -24,32 +24,38 @@ stages:
         echo "##vso[task.setvariable variable=myOutputVar;isOutput=true]this is the value"
         # echo "##vso[setvariable variable=testVariable;]Blah"
         # echo "$(testVariable)"
-        echo "$(myOutputVar)"
-        echo "Output variable 1 is $[outputs['myOutputVar']]"
-        echo "Output variable 2 is $[outputs['setvarStep.myOutputVar']]"
+        # echo "$(myOutputVar)"                                            # DOES NOT WORK
+        echo "Output variable 1 is $[outputs['myOutputVar']]"              # This does not error, but doesn't write out the correct value
+        #echo "Output variable 2 is $[outputs['setvarStep.myOutputVar']]"  # DOES NOT WORK
+        echo "Blabity Blah" > $(Build.ArtifactStagingDirectory)/output.txt
+        cat ./output/variables.txt
         echo "Success"
       name: setvarStep
       displayName: Set Variable Step
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'Outputs'
+        targetPath: './output'
+        
+  # - job: Job_S1_J2
+  #   displayName: Stage 1 Job 2
+  #   # dependsOn: Job_S1_J1
+  #   variables:
+  #     dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
+  #   steps:
+  #   - script: echo $(dummyVar)
+  #   - bash: |
+  #       echo "Stage 1, Job 2"
+  #       echo "dummyVar is $(dummyVar)"
 
-  - job: Job_S1_J2
-    displayName: Stage 1 Job 2
-    # dependsOn: Job_S1_J1
-    variables:
-      dummyVar: $[ dependencies.Job_S1_J1.outputs['setvarStep.myOutputVar'] ]
-    steps:
-    - script: echo $(dummyVar)
-    - bash: |
-        echo "Stage 1, Job 2"
-        echo "dummyVar is $(dummyVar)"
+# - stage: Stage_2
+#   displayName: Stage 2
+#   jobs:
 
-- stage: Stage_2
-  displayName: Stage 2
-  jobs:
-
-  - job: Job_S2_J1
-    displayName: Stage 2 Job 1
-    steps:
-    - bash: echo "Stage 2, Job 1"
+#   - job: Job_S2_J1
+#     displayName: Stage 2 Job 1
+#     steps:
+#     - bash: echo "Stage 2, Job 1"
 
   # - job: Job_S2_J2
   #   displayName: Stage 2 Job 2
