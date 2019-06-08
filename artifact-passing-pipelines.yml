@@ -23,22 +23,22 @@ stages:
         echo "Stage 1, Job 1"
         echo "My Test Value Goes Here" > ./outputs.txt
         cat ./outputs.txt
-      displayName: Write Pipeline Artifact
+      displayName: Build Pipeline Artifacts
     - task: PublishPipelineArtifact@0
-      displayName: Publish Pipeline Artifact
+      displayName: Publish Pipeline Artifacts
       inputs:
-        artifactName: 'MyOutputs'
+        # artifactName: 'MyOutputs'
         targetPath: './outputs.txt'
 
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
     dependsOn: Job_S1_J1
     steps:
-    # - task: DownloadPipelineArtifact@0
-    #   displayName: Download Pipeline Artifacts
-    #   inputs:
-    #     artifactName: 'MyOutputs'
-    #     # targetPath: $(Pipeline.Workspace)
+    - task: DownloadPipelineArtifact@0
+      displayName: Download Pipeline Artifacts
+      # inputs:
+        # artifactName: 'MyOutputs'
+        # targetPath: $(Pipeline.Workspace)
     - script: |
         ls .
         # ls $(Pipeline.Workspace)
