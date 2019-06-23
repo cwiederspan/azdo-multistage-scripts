@@ -10,6 +10,11 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:      # pipeline-level
+- name: TEST_VAR_WITH_DEFAULT
+  value: 'DEFAULT VALUE'
+-name: TEST_VAR_WO_DEFAULT
+
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
