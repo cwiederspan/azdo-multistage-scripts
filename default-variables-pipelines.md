@@ -12,4 +12,7 @@ az pipelines create --name 'Default Variables with CLI' \
    --repository-type github \
    --branch master \
    --yml-path default-variables-pipelines.yml
+
+   # https://github.com/Azure/azure-devops-cli-extension/issues/639
+   --variables var1=value1 var2=value2
 ```
