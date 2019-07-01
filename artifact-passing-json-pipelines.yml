@@ -38,7 +38,9 @@ stages:
     - script: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
         cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable'
-        # echo "Setting variable..."
+        echo "Setting variable..."
+        echo "##vso[task.setvariable variable=testVariable;isOutput=true](jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)"
+        echo "$(testVariable)"
         # myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
         # myvalue=$(jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)
         # echo $myValue
