@@ -21,23 +21,23 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "*** My Test Value Goes Here ***" > ./outputs.txt
-        cat ./outputs.txt
+        echo "*** My Test Value Goes Here ***" > $(build.artifactStagingDirectory)/outputs.txt
+        cat $(build.artifactStagingDirectory)/outputs.txt
       displayName: Build Pipeline Artifacts
-    - task: PublishPipelineArtifact@0
+    - publish: $(build.artifactStagingDirectory)
       displayName: Publish Pipeline Artifacts
-      inputs:
-        targetPath: './outputs.txt'
+      artifact: myvariableartifact
 
   - job: Job_S1_J2
     displayName: Stage 1 Job 2
     dependsOn: Job_S1_J1
     steps:
-    - task: DownloadPipelineArtifact@0
+    - download: current
+      artifact: myvariableartifact
       displayName: Download Pipeline Artifacts
     - script: |
-        ls .
-        cat ./outputs.txt
+        ls $(pipeline.workspace)
+        cat $(pipeline.workspace)/outputs.txt
       displayName: Check Results
 
 - stage: Stage_2
@@ -47,9 +47,10 @@ stages:
   - job: Job_S2_J1
     displayName: Stage 2 Job 1
     steps:
-    - task: DownloadPipelineArtifact@0
+    - download: current
+      artifact: myvariableartifact
       displayName: Download Pipeline Artifacts
     - script: |
-        ls .
-        cat ./outputs.txt
+        ls $(pipeline.workspace)
+        cat $(pipeline.workspace)/outputs.txt
       displayName: Check Results
