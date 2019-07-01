@@ -21,7 +21,7 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo $(jq -n --arg jqVar "*** Some Variable ***" '{myvariable: $jqVar}')  > $(build.artifactStagingDirectory)/variables.json
+        echo $(jq -n --arg jqVar "*** Some Variable ***" '{myvariable: $jqVar}') > $(build.artifactStagingDirectory)/variables.json
         cat $(build.artifactStagingDirectory)/variables.json
       displayName: Build Pipeline Artifacts
     - publish: $(build.artifactStagingDirectory)
@@ -37,22 +37,23 @@ stages:
       displayName: Download Pipeline Artifacts
     - script: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
-        echo $(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        echo $(jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable'
         # echo $myValue
       displayName: Check Results
 
-- stage: Stage_2
-  displayName: Stage 2
-  jobs:
+# - stage: Stage_2
+#   displayName: Stage 2
+#   jobs:
 
-  - job: Job_S2_J1
-    displayName: Stage 2 Job 1
-    steps:
-    - download: current
-      artifact: myvariableartifact
-      displayName: Download Pipeline Artifacts
-    - script: |
-        cat $(pipeline.workspace)/myvariableartifact/variables.json
-        myValue=$(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
-        echo $myValue
-      displayName: Check Results
+#   - job: Job_S2_J1
+#     displayName: Stage 2 Job 1
+#     steps:
+#     - download: current
+#       artifact: myvariableartifact
+#       displayName: Download Pipeline Artifacts
+#     - script: |
+#         cat $(pipeline.workspace)/myvariableartifact/variables.json
+#         myValue=$(jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)
+#         echo $myValue
+#       displayName: Check Results
