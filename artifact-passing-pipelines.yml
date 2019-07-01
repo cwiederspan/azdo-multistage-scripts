@@ -40,17 +40,17 @@ stages:
         cat $(pipeline.workspace)/myvariableartifact/outputs.txt
       displayName: Check Results
 
-# - stage: Stage_2
-#   displayName: Stage 2
-#   jobs:
+- stage: Stage_2
+  displayName: Stage 2
+  jobs:
 
-#   - job: Job_S2_J1
-#     displayName: Stage 2 Job 1
-#     steps:
-#     - download: current
-#       artifact: myvariableartifact
-#       displayName: Download Pipeline Artifacts
-#     - script: |
-#         ls $(pipeline.workspace)
-#         cat $(pipeline.workspace)/myvariableartifact/outputs.txt
-#       displayName: Check Results
+  - job: Job_S2_J1
+    displayName: Stage 2 Job 1
+    steps:
+    - download: current
+      artifact: myvariableartifact
+      displayName: Download Pipeline Artifacts
+    - script: |
+        ls $(pipeline.workspace)
+        cat $(pipeline.workspace)/myvariableartifact/outputs.txt
+      displayName: Check Results
