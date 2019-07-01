@@ -21,8 +21,8 @@ stages:
     steps:
     - script: |
         echo "Stage 1, Job 1"
-        echo "*** My Test Value Goes Here ***" > $(build.artifactStagingDirectory)/outputs.txt
-        cat $(build.artifactStagingDirectory)/outputs.txt
+        echo $(jq -n --arg jqVar "*** Some Variable ***" '{myvariable: $jqVar}')  > $(build.artifactStagingDirectory)/variables.json
+        cat $(build.artifactStagingDirectory)/variables.json
       displayName: Build Pipeline Artifacts
     - publish: $(build.artifactStagingDirectory)
       displayName: Publish Pipeline Artifacts
@@ -36,7 +36,8 @@ stages:
       artifact: myvariableartifact
       displayName: Download Pipeline Artifacts
     - script: |
-        cat $(pipeline.workspace)/myvariableartifact/outputs.txt
+        cat $(pipeline.workspace)/myvariableartifact/variables.json
+        myValue=$(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
       displayName: Check Results
 
 - stage: Stage_2
@@ -50,5 +51,6 @@ stages:
       artifact: myvariableartifact
       displayName: Download Pipeline Artifacts
     - script: |
-        cat $(pipeline.workspace)/myvariableartifact/outputs.txt
+        cat $(pipeline.workspace)/myvariableartifact/variables.json
+        myValue=$(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
       displayName: Check Results
