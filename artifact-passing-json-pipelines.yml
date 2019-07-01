@@ -35,15 +35,11 @@ stages:
     - download: current
       artifact: myvariableartifact
       displayName: Download Pipeline Artifacts
-    - script: |
+    - bash: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
         cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable'
         echo "Setting variable..."
-        mypath=$(pipeline.workspace)
-        echo $mypath
-        myvalue=$(cat $mypath/myvariableartifact/variables.json | jq '.myvariable')
-        # myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
-        # myvalue=$(jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
         echo "$myValue"
       displayName: Check Results
 
