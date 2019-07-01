@@ -38,9 +38,9 @@ stages:
     - bash: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
         cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable'
-        echo "Setting variable..."
-        myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
-        echo "$myValue"
+        # echo "Setting variable..."
+        # myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
+        # echo "$myValue"
       displayName: Check Results
 
 # - stage: Stage_2
