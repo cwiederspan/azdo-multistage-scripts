@@ -40,7 +40,8 @@ stages:
         cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable'
         echo "Setting variable..."
         # myvalue=$(cat $(pipeline.workspace)/myvariableartifact/variables.json | jq '.myvariable')
-        myvalue=$(jq '.myvariable' $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        path=$(pipeline.workspace)
+        myvalue=$(jq '.myvariable' $path/myvariableartifact/variables.json -r)
         echo $myValue
       displayName: Check Results
 
