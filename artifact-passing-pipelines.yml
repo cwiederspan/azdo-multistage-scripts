@@ -52,5 +52,5 @@ stages:
       displayName: Download Pipeline Artifacts
     - script: |
         ls $(pipeline.workspace)
-        cat $(pipeline.workspace)/outputs.txt
+        cat $(pipeline.workspace)/myvariableartifact/outputs.txt
       displayName: Check Results
