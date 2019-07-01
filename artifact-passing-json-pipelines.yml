@@ -37,8 +37,8 @@ stages:
       displayName: Download Pipeline Artifacts
     - script: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
-        myValue=$(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
-        echo $myValue
+        echo $(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        # echo $myValue
       displayName: Check Results
 
 - stage: Stage_2
