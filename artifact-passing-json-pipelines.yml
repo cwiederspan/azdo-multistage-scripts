@@ -4,7 +4,7 @@ trigger:
     - master
   paths:
     include:
-    - artifact-passing-pipelines.yml
+    - artifact-passing-json-pipelines.yml
 
 variables:
   skipComponentGovernanceDetection: true
