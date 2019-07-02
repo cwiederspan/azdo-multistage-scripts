@@ -37,10 +37,10 @@ stages:
       displayName: Download Pipeline Artifacts
     - bash: |
         cat $(pipeline.workspace)/myvariableartifact/variables.json
-        cat $(pipeline.workspace)/myvariableartifact/variables.json | jq .yourVariableToShare
+        cat $(pipeline.workspace)/myvariableartifact/variables.json | jq .myvariable
         echo "Setting variable..."
-        valueOfYourVariableShared=$(jq .yourVariableToShare $(pipeline.workspace)/myvariableartifact/variables.json -r)
-        echo $valueOfYourVariableShared
+        valueOfYourVariableShared=$(jq .myvariable $(pipeline.workspace)/myvariableartifact/variables.json -r)
+        echo "$valueOfYourVariableShared"
       displayName: Check Results
 
 # - stage: Stage_2
