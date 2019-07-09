@@ -1,0 +1,24 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - apis/poi/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  acr: '$(acr_name).azurecr.io/devopsoh/api-poi'
+  tagged: '$(acr):$(Build.BuildId)'
+  latest: '$(acr):latest'
+
+steps:
+- task: AzureCLI@1
+  displayName: 'Build Container and Store in ACR'
+  inputs:
+    azureSubscription: 'OTA-PRD-717'
+    scriptLocation: inlineScript
+    inlineScript: |
+      az acr build -r $(acr_name) -t $(tagged) -t $(latest) -f ./apis/poi/web/Dockerfile ./apis/poi/web/

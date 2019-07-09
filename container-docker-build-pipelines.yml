@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - apis/poi/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  acr_fqdn: '$(acr_name).azurecr.io'
+  acr: '$(acr_fqdn)/devopsoh/api-poi'
+  tagged: '$(acr):$(Build.BuildId)'
+  latest: '$(acr):latest'
+
+steps:
+- script: | 
+    docker login -u $(acr_name) -p $pswd $(acr_fqdn)
+    docker build -t $(tagged) -t $(latest) -f ./apis/poi/web/Dockerfile ./apis/poi/web/
+    docker push $(acr)
+  env:
+    pswd: $(acr_password)
+  displayName: 'Build Container and Store in ACR'
