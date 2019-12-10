@@ -2,7 +2,7 @@ resources:
  containers:
    - container: mycontainer
      connection: "My Docker Connection"
-     image: cwiederspan/bastion
+     image: cwiederspan/bastion:latest
 
 pool:
   vmImage: 'ubuntu-latest'
