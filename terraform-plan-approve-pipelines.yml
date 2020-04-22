@@ -20,6 +20,10 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: ManualIntervention@8
+      inputs:
+        instructions: 'Please review the Terraform plan.'
+        emailRecipients: 'chwieder@microsoft.com'
     - task: AzureCLI@2
       displayName: Terraform Plan
       inputs:
