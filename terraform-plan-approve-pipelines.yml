@@ -58,9 +58,17 @@ stages:
       runOnce:
         deploy:
           steps:
+          - checkout: self
+            displayName: Download Code
+            clean: true
+            fetchDepth: 5
+            lfs: true
+            path: $(pipeline.workspace)/terraformplan
+
           - download: current
-            artifact: terraformplan
             displayName: Download Plan
+            artifact: terraformplan
+
           - task: AzureCLI@2
             displayName: Terraform Apply
             inputs:
