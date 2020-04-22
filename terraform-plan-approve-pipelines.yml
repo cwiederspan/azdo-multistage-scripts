@@ -50,6 +50,7 @@ stages:
       artifact: terraformplan
 
   - deployment: Release
+    dependsOn: Plan
     pool:
       vmImage: 'ubuntu-latest'
     environment: Production
