@@ -58,7 +58,7 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: terraformplan
+          - download: current
             artifact: terraformplan
             displayName: Download Plan
           - task: AzureCLI@2
