@@ -14,12 +14,41 @@ variables:
 
 stages:
 
-- stage: Demo
+- stage: Production
   jobs:
-  - job: Terraform_Plan
+  - job: Plan
     pool:
       vmImage: 'ubuntu-latest'
-    environment: Build
+    steps:
+    - task: AzureCLI@2
+      displayName: Terraform Plan
+      inputs:
+        azureSubscription: $(service_connection_name)
+        scriptType: bash
+        scriptLocation: inlineScript
+        addSpnToEnvironment: true
+        workingDirectory: $(working_directory)
+        inlineScript: |
+          export ARM_CLIENT_ID=$servicePrincipalId
+          export ARM_CLIENT_SECRET=$servicePrincipalKey
+          export ARM_SUBSCRIPTION_ID=$(az account show -o json | jq -r '.id')
+          export ARM_TENANT_ID=$(az account show -o json | jq -r '.tenantId')
+          
+          terraform init \
+            -backend-config="storage_account_name=$(tfstate_storage_account_name)" \
+            -backend-config="container_name=$(tfstate_container_name)" \
+            -backend-config="key=$(tfstate_key)" \
+            -backend-config="access_key=$(tfstate_access_key)"
+
+          terraform plan \
+            -out out.tfplan \
+            -var 'resource_group_name=$(resource_group_name)' \
+            -var 'location=$(location)'
+
+  - deployment: Release
+    pool:
+      vmImage: 'ubuntu-latest'
+    environment: Production
     strategy:
       runOnce:
         deploy:
@@ -44,89 +73,4 @@ stages:
                   -backend-config="key=$(tfstate_key)" \
                   -backend-config="access_key=$(tfstate_access_key)"
 
-                terraform plan \
-                  -out out.tfplan \
-                  -var 'resource_group_name=$(resource_group_name)' \
-                  -var 'location=$(location)'
-
-  # - job: Terraform_Apply
-  #   pool:
-  #     vmImage: 'ubuntu-latest'
-  #   environment: Release
-  #     strategy:
-  #       runOnce:
-  #         deploy:
-  #           steps:
-  #           - task: AzureCLI@2
-  #             displayName: Plan
-  #             inputs:
-  #               azureSubscription: $(service_connection_name)
-  #               scriptType: bash
-  #               scriptLocation: inlineScript
-  #               addSpnToEnvironment: true
-  #               workingDirectory: $(working_directory)
-  #               inlineScript: |
-  #                 export ARM_CLIENT_ID=$servicePrincipalId
-  #                 export ARM_CLIENT_SECRET=$servicePrincipalKey
-  #                 export ARM_SUBSCRIPTION_ID=$(az account show -o json | jq -r '.id')
-  #                 export ARM_TENANT_ID=$(az account show -o json | jq -r '.tenantId')
-                  
-  #                 terraform init \
-  #                   -backend-config="storage_account_name=$(tfstate_storage_account_name)" \
-  #                   -backend-config="container_name=$(tfstate_container_name)" \
-  #                   -backend-config="key=$(tfstate_key)" \
-  #                   -backend-config="access_key=$(tfstate_access_key)"
-
-  #                 terraform apply out.tfplan
-
-
-# - stage: Build
-#   jobs:
-#   - job: Container
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     steps:
-#     - task: AzureCLI@1
-#       displayName: 'Build Container'
-#       inputs:
-#         azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
-#         scriptLocation: inlineScript
-#         inlineScript: |
-#           sed -i 's/XXX/$(Build.BuildId)/g' ./src/index.html
-#           az acr build -r $(acr_name) -t $(tagged) -t $(latest) -f ./src/Dockerfile ./src/
-
-# - stage: Staging
-#   jobs:
-#   - deployment: WebApp
-#     displayName: Deploy Web App
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     environment: Staging
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: AzureWebAppContainer@1
-#             displayName: 'Deploy Web App'
-#             inputs:
-#               azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
-#               appName: '$(app_name)-stage'
-#               containers: '$(tagged)'
-
-# - stage: Production
-#   jobs:
-#   - deployment: WebApp
-#     displayName: Deploy Web App
-#     pool:
-#       vmImage: 'ubuntu-latest'
-#     environment: Production
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: AzureWebAppContainer@1
-#             displayName: 'Deploy Web App'
-#             inputs:
-#               azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
-#               appName: '$(app_name)-prod'
-#               containers: '$(tagged)'
+                terraform apply out.tfplan
