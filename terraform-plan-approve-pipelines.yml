@@ -49,11 +49,10 @@ stages:
       displayName: Publish Plan
       artifact: terraformplan
 
-
 - stage: Deploy
   jobs:
   - deployment: Release
-    # dependsOn: Plan
+    #dependsOn: Plan
     pool:
       vmImage: 'ubuntu-latest'
     environment: Production
