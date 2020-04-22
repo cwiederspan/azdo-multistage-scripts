@@ -63,7 +63,7 @@ stages:
             clean: true
             fetchDepth: 5
             lfs: true
-            path: terraformplan
+            #path: terraformplan
 
           - download: current
             displayName: Download Plan
@@ -76,7 +76,7 @@ stages:
               scriptType: bash
               scriptLocation: inlineScript
               addSpnToEnvironment: true
-              workingDirectory: $(pipeline.workspace)/terraformplan
+              workingDirectory: $(working_directory)
               inlineScript: |
                 pwd
                 ls -l -A
@@ -92,4 +92,4 @@ stages:
                   -backend-config="key=$(tfstate_key)" \
                   -backend-config="access_key=$(tfstate_access_key)"
 
-                terraform apply out.tfplan
+                terraform apply $(pipeline.workspace)/terraformplan/out.tfplan
