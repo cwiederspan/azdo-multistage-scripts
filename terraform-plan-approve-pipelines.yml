@@ -81,5 +81,4 @@ stages:
                   -backend-config="key=$(tfstate_key)" \
                   -backend-config="access_key=$(tfstate_access_key)"
 
-#               cat $(pipeline.workspace)/terraformplan/out.tfplan
                 terraform apply $(pipeline.workspace)/terraformplan/out.tfplan
