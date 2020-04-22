@@ -1,0 +1,96 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - terraform-plan-approve-pipelines.yml
+    - assets/terraform/*
+
+variables:
+  working_directory: './assets/terraform'
+  resource_group_name: 'cdw-myresourcegroup-test'
+  location: 'westus2'
+
+stages:
+
+- stage: 'Terraform Plan'
+  jobs:
+  - job: Infrastructure
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - template: modules/terraform-init.yml
+        parameters:
+          service_connection_name: $(service_connection_name)
+          working_directory: $(working_directory)
+          tfstate_storage_account_name: $(tfstate_storage_account_name)
+          tfstate_container_name: $(tfstate_container_name)
+          tfstate_key: $(tfstate_key)
+          tfstate_access_key: $(tfstate_access_key)
+
+      - task: AzureCLI@2
+        displayName: Plan
+        inputs:
+          azureSubscription: $(service_connection_name)
+          scriptType: bash
+          scriptLocation: inlineScript
+          addSpnToEnvironment: true
+          workingDirectory: $(working_directory)
+          inlineScript: |
+            terraform plan \
+              -out out.tfplan \
+              -var 'resource_group_name=$(resource_group_name)' \
+              -var 'location=$(location)'
+
+
+# - stage: Build
+#   jobs:
+#   - job: Container
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     steps:
+#     - task: AzureCLI@1
+#       displayName: 'Build Container'
+#       inputs:
+#         azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
+#         scriptLocation: inlineScript
+#         inlineScript: |
+#           sed -i 's/XXX/$(Build.BuildId)/g' ./src/index.html
+#           az acr build -r $(acr_name) -t $(tagged) -t $(latest) -f ./src/Dockerfile ./src/
+
+# - stage: Staging
+#   jobs:
+#   - deployment: WebApp
+#     displayName: Deploy Web App
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     environment: Staging
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - task: AzureWebAppContainer@1
+#             displayName: 'Deploy Web App'
+#             inputs:
+#               azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
+#               appName: '$(app_name)-stage'
+#               containers: '$(tagged)'
+
+# - stage: Production
+#   jobs:
+#   - deployment: WebApp
+#     displayName: Deploy Web App
+#     pool:
+#       vmImage: 'ubuntu-latest'
+#     environment: Production
+#     strategy:
+#       runOnce:
+#         deploy:
+#           steps:
+#           - task: AzureWebAppContainer@1
+#             displayName: 'Deploy Web App'
+#             inputs:
+#               azureSubscription: 'CDW - Microsoft AIRS 01 (b9c770d1-cde9-4da3-ae40-95ce1a4fac0c)'
+#               appName: '$(app_name)-prod'
+#               containers: '$(tagged)'
