@@ -46,7 +46,7 @@ stages:
             -var 'location=$(location)'
 
     - publish: $(build.artifactStagingDirectory)
-      displayName: Publish Terraform Plan
+      displayName: Publish Plan
       artifact: terraformplan
 
   - deployment: Release
@@ -58,17 +58,17 @@ stages:
       runOnce:
         deploy:
           steps:
-          - download: current
+          - download: terraformplan
             artifact: terraformplan
-            displayName: Download Terraform Plan
+            displayName: Download Plan
           - task: AzureCLI@2
-            displayName: Plan
+            displayName: Terraform Apply
             inputs:
               azureSubscription: $(service_connection_name)
               scriptType: bash
               scriptLocation: inlineScript
               addSpnToEnvironment: true
-              workingDirectory: $(working_directory)
+              workingDirectory: $(pipeline.workspace)/terraformplan
               inlineScript: |
                 export ARM_CLIENT_ID=$servicePrincipalId
                 export ARM_CLIENT_SECRET=$servicePrincipalKey
@@ -81,4 +81,4 @@ stages:
                   -backend-config="key=$(tfstate_key)" \
                   -backend-config="access_key=$(tfstate_access_key)"
 
-                terraform apply $(pipeline.workspace)/terraformplan/out.tfplan
+                terraform apply out.tfplan
