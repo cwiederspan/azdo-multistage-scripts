@@ -63,7 +63,7 @@ stages:
             clean: true
             fetchDepth: 5
             lfs: true
-            path: $(pipeline.workspace)/terraformplan
+            path: terraformplan
 
           - download: current
             displayName: Download Plan
