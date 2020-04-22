@@ -41,9 +41,13 @@ stages:
             -backend-config="access_key=$(tfstate_access_key)"
 
           terraform plan \
-            -out out.tfplan \
+            -out $(build.artifactStagingDirectory)/out.tfplan \
             -var 'resource_group_name=$(resource_group_name)' \
             -var 'location=$(location)'
+
+    - publish: $(build.artifactStagingDirectory)
+      displayName: Publish Terraform Plan
+      artifact: terraformplan
 
   - deployment: Release
     pool:
@@ -53,6 +57,9 @@ stages:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: terraformplan
+            displayName: Download Terraform Plan
           - task: AzureCLI@2
             displayName: Plan
             inputs:
@@ -73,4 +80,5 @@ stages:
                   -backend-config="key=$(tfstate_key)" \
                   -backend-config="access_key=$(tfstate_access_key)"
 
-                terraform apply out.tfplan
+                cat $(pipeline.workspace)/terraformplan/out.tfplan
+#               terraform apply $(pipeline.workspace)/terraformplan/out.tfplan
