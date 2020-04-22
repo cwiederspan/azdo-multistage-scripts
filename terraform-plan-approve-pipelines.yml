@@ -21,7 +21,6 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
       - template: modules/terraform-init.yml
-        displayName: Init
         parameters:
           service_connection_name: $(service_connection_name)
           working_directory: $(working_directory)
