@@ -14,7 +14,7 @@ variables:
 
 stages:
 
-- stage: Production
+- stage: Prepare
   jobs:
   - job: Plan
     pool:
@@ -49,6 +49,9 @@ stages:
       displayName: Publish Plan
       artifact: terraformplan
 
+
+- stage: Deploy
+  jobs:
   - deployment: Release
     dependsOn: Plan
     pool:
