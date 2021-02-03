@@ -4,10 +4,16 @@ terraform {
   backend "azurerm" {
     environment = "public"
   }
+
+  required_providers {
+    azurerm = {
+      version = "~> 2.45"
+    }
+  }
 }
 
 provider "azurerm" {
-  version = "=2.45.1"
+  features {}
 }
 
 variable "resource_group_name" {
