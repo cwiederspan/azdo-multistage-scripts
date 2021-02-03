@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "azurerm" {
-  version = "=1.41.0"
+  version = "=2.45.1"
 }
 
 variable "resource_group_name" {
