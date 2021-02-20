@@ -27,4 +27,3 @@ terraform plan \
   -var location=westus2
 
 ```
-   
