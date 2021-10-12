@@ -13,6 +13,6 @@ stages:
       displayName: Stage 2 Job 1
       steps:
         - template: templates/create-resource-group.yml
-          inputs:
+          parameters:
             - name: azureServiceConnection
               value: abcxyz1234567890
