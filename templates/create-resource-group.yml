@@ -16,12 +16,12 @@ steps:
         echo "Inner value: $(blah)"
     displayName: Inner Echo 3
 
-#   - task: AzureCLI@2
-#     displayName: Nested Template Step
-#     inputs:
-#       azureSubscription: "$(parameters.azureServiceConnection)"
-#       addSpnToEnvironment: true
-#       scriptType: bash
-#       scriptLocation: inlineScript
-#       inlineScript: |
-#         echo Here we go: ${{ parameters.azureServiceConnection }}
+  - task: AzureCLI@2
+    displayName: Nested Template Step
+    inputs:
+      azureSubscription: "$(blah)"
+      addSpnToEnvironment: true
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo Here we go: ${{ parameters.azureServiceConnection }}
