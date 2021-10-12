@@ -7,6 +7,10 @@ steps:
   - script: |
         echo "Inner value: ${{ parameters.azureServiceConnection }}"
     displayName: Inner Echo
+    
+  - script: |
+        echo "Inner value: ${{ variables.service_connection_name }}"
+    displayName: Inner Echo 2
 
   - task: AzureCLI@2
     displayName: Nested Template Step
