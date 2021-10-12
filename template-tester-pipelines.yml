@@ -8,9 +8,9 @@ stages:
         displayName: Stage 1 Job 1
         steps:
           - script: |
-              echo "Outer Value: $(azureServiceConnection)"
+              echo "Outer Value: $(service_connection_name)"
             displayName: Outer Echo
 
           - template: templates/create-resource-group.yml
             parameters:
-              azureServiceConnection: $(azureServiceConnection)
+              azureServiceConnection: $(service_connection_name)
