@@ -1,17 +1,14 @@
-parameters:
-  - name: environments
-    type: object
-    default: [dev,staging]
+variables:
+  - name: azureServiceConnection
 
 stages:
+  - stage: Stage_1
+    displayName: Stage 1
 
-- stage: Stage_1
-  displayName: Stage 1
-
-  jobs:
-    - job: Job_S1_J1
-      displayName: Stage 1 Job 1
-      steps:
-        - template: templates/create-resource-group.yml
-          parameters:
-            azureServiceConnection: My Azure Connection
+    jobs:
+      - job: Job_S1_J1
+        displayName: Stage 1 Job 1
+        steps:
+          - template: templates/create-resource-group.yml
+            parameters:
+              azureServiceConnection: $(azureServiceConnection)
