@@ -15,9 +15,9 @@ stages:
               echo "Outer Value: $(MyConnection)"
             displayName: Outer Echo
 
-          - template: templates/create-resource-group.yml
-            parameters:
-              azureServiceConnection: $(MyConnection)
+          # - template: templates/create-resource-group.yml
+          #   parameters:
+          #     azureServiceConnection: $(MyConnection)
 
           - template: templates/create-resource-group.yml
             parameters:
@@ -32,4 +32,4 @@ stages:
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
-                echo Here we go: $(MyConnection)
+                echo Here we go: $(ServiceConnection)
