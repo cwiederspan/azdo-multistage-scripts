@@ -1,3 +1,7 @@
+variables:
+- name: blah
+  value: "My Azure Connection"
+
 stages:
   - stage: Stage_1
     displayName: Stage 1

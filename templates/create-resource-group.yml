@@ -11,6 +11,10 @@ steps:
   - script: |
         echo "Inner value: $(parameters.azureServiceConnection)"
     displayName: Inner Echo 2
+    
+  - script: |
+        echo "Inner value: $(blah)"
+    displayName: Inner Echo 3
 
 #   - task: AzureCLI@2
 #     displayName: Nested Template Step
