@@ -6,6 +6,11 @@ stages:
     displayName: Stage 1
 
     jobs:
+
+      - script: |
+          echo "Outer Value: $(azureServiceConnection)"
+        displayName: Outer Echo
+
       - job: Job_S1_J1
         displayName: Stage 1 Job 1
         steps:
