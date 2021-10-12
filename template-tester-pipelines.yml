@@ -19,6 +19,10 @@ stages:
             parameters:
               azureServiceConnection: $(MyConnection)
 
+          - template: templates/create-resource-group.yml
+            parameters:
+              azureServiceConnection: $(ServiceConnection)
+
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
