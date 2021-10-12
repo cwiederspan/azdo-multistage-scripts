@@ -9,9 +9,9 @@ stages:
   displayName: Stage 1
 
   jobs:
-    - job: Job_S2_J1
-      displayName: Stage 2 Job 1
+    - job: Job_S1_J1
+      displayName: Stage 1 Job 1
       steps:
         - template: templates/create-resource-group.yml
           parameters:
-            azureServiceConnection: abcxyz1234567890
+            azureServiceConnection: My Azure Connection
