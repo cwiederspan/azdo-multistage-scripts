@@ -14,5 +14,4 @@ stages:
       steps:
         - template: templates/create-resource-group.yml
           parameters:
-            - name: azureServiceConnection
-              value: abcxyz1234567890
+            azureServiceConnection: abcxyz1234567890
