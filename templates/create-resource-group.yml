@@ -18,7 +18,8 @@ steps:
     #   azureSubscription: $(service_connection_name)
     #   azureSubscription: "My Azure Connection XYZ"
     #   azureSubscription: "${{ variables.service_connection_name }}"
-      azureSubscription: "${{ parameters.azureServiceConnection }}"
+    #   azureSubscription: "${{ parameters.azureServiceConnection }}"
+      azureSubscription: "${{ variables.blah }}"
       addSpnToEnvironment: true
       scriptType: bash
       scriptLocation: inlineScript
