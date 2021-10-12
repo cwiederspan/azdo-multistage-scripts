@@ -18,3 +18,13 @@ stages:
           - template: templates/create-resource-group.yml
             parameters:
               azureServiceConnection: $(service_connection_name)
+
+          - task: AzureCLI@2
+            displayName: Outer Template Step
+            inputs:
+              azureSubscription: My Azure Connection
+              addSpnToEnvironment: true
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                echo Here we go: $(blah)
