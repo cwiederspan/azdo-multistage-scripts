@@ -1,9 +1,3 @@
-trigger:
-  branches:
-    - master
-  types:
-    - manual
-
 parameters:
   - name: environments
     type: object
