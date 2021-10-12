@@ -12,7 +12,7 @@ steps:
     displayName: Nested Template Step
     inputs:
     #   azureSubscription: $(service_connection_name)
-      azureSubscription: "My Azure Connection"
+      azureSubscription: "My Azure Connection XYZ"
       addSpnToEnvironment: true
       scriptType: bash
       scriptLocation: inlineScript
