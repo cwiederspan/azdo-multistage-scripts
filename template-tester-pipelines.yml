@@ -22,7 +22,8 @@ stages:
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
-              azureSubscription: $(MyConnection)
+              # azureSubscription: $(MyConnection)
+              azureSubscription: ${{ variables.ServiceConnection }}
               addSpnToEnvironment: true
               scriptType: bash
               scriptLocation: inlineScript
