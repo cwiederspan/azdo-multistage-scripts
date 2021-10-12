@@ -12,7 +12,8 @@ steps:
     displayName: Nested Template Step
     inputs:
     #   azureSubscription: $(service_connection_name)
-      azureSubscription: "My Azure Connection XYZ"
+    #   azureSubscription: "My Azure Connection XYZ"
+      azureSubscription: "${{ variables.service_connection_name }}""
       addSpnToEnvironment: true
       scriptType: bash
       scriptLocation: inlineScript
