@@ -1,6 +1,3 @@
-variables:
-  - name: azureServiceConnection
-
 stages:
   - stage: Stage_1
     displayName: Stage 1
