@@ -19,7 +19,7 @@ steps:
   - task: AzureCLI@2
     displayName: Nested Template Step
     inputs:
-      azureSubscription: "My Azure Connection"
+      azureSubscription: My Azure Connection
       addSpnToEnvironment: true
       scriptType: bash
       scriptLocation: inlineScript
