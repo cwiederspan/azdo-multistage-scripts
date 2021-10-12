@@ -1,0 +1,24 @@
+trigger:
+  branches:
+    - master
+  types:
+    - manual
+
+parameters:
+  - name: environments
+    type: object
+    default: [dev,staging]
+
+stages:
+
+- stage: Stage_1
+  displayName: Stage 1
+
+  jobs:
+    - job: Job_S2_J1
+      displayName: Stage 2 Job 1
+      steps:
+        - template: templates/create-resource-group.yml
+          inputs:
+            - name: azureServiceConnection
+              value: abcxyz1234567890

@@ -1,0 +1,14 @@
+parameters:
+- name: azureServiceConnection
+  type: string
+  default: false
+
+steps:
+  - task: AzureCLI@2
+    displayName: Nested Template Step
+    inputs:
+      azureSubscription: ${{ variables.azureServiceConnection }}
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo Here we go: ${{ variables.azureServiceConnection }}
