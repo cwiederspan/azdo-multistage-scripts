@@ -15,6 +15,10 @@ stages:
               echo "Outer Value: $(MyConnection)"
             displayName: Outer Echo
 
+          - template: templates/create-resource-group.yml
+            parameters:
+              azureServiceConnection: $(MyConnection)
+
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
@@ -23,4 +27,4 @@ stages:
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
-                echo Here we go: $(blah)
+                echo Here we go: $(MyConnection)
