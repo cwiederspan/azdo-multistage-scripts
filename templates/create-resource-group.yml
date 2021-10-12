@@ -4,6 +4,9 @@ parameters:
   default: false
 
 steps:
+  - script: |
+        echo "Testing..."
+        echo "Here we go: ${{ variables.azureServiceConnection }}""
   - task: AzureCLI@2
     displayName: Nested Template Step
     inputs:
