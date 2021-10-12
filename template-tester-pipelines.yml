@@ -1,7 +1,3 @@
-variables:
-- name: MyConnection
-  value: "DummyConnection"
-
 stages:
   - stage: Stage_1
     displayName: Stage 1
@@ -15,10 +11,6 @@ stages:
               echo "Outer Value: $(MyConnection)"
             displayName: Outer Echo
 
-          # - template: templates/create-resource-group.yml
-          #   parameters:
-          #     azureServiceConnection: $(MyConnection)
-
           - template: templates/create-resource-group.yml
             parameters:
               azureServiceConnection: $(ServiceConnection)
@@ -26,7 +18,6 @@ stages:
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
-              # azureSubscription: $(MyConnection)
               azureSubscription: $(ServiceConnection)
               addSpnToEnvironment: true
               scriptType: bash
