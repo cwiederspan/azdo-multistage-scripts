@@ -9,21 +9,13 @@ steps:
     displayName: Inner Echo
     
   - script: |
-        echo "Inner value: ${{ variables.service_connection_name }}"
+        echo "Inner value: $(parameters.azureServiceConnection)"
     displayName: Inner Echo 2
-    
-  - script: |
-        echo "Inner value: ${{ variables.blah }}"
-    displayName: Inner Echo 3
 
   - task: AzureCLI@2
     displayName: Nested Template Step
     inputs:
-    #   azureSubscription: $(service_connection_name)
-    #   azureSubscription: "My Azure Connection XYZ"
-    #   azureSubscription: "${{ variables.service_connection_name }}"
-    #   azureSubscription: "${{ parameters.azureServiceConnection }}"
-      azureSubscription: "${{ variables.blah }}"
+      azureSubscription: "$(parameters.azureServiceConnection)"
       addSpnToEnvironment: true
       scriptType: bash
       scriptLocation: inlineScript
