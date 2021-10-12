@@ -6,12 +6,12 @@ parameters:
 steps:
   - script: |
         echo "Testing..."
-        echo "Here we go: ${{ variables.azureServiceConnection }}""
+        echo "Here we go: ${{ parameters.azureServiceConnection }}"
   - task: AzureCLI@2
     displayName: Nested Template Step
     inputs:
-      azureSubscription: ${{ variables.azureServiceConnection }}
+      azureSubscription: ${{ parameters.azureServiceConnection }}
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        echo Here we go: ${{ variables.azureServiceConnection }}
+        echo Here we go: ${{ parameters.azureServiceConnection }}
