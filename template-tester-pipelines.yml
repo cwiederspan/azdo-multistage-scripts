@@ -22,7 +22,7 @@ stages:
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
-              azureSubscription: My Azure Connection
+              azureSubscription: DummyConnection
               addSpnToEnvironment: true
               scriptType: bash
               scriptLocation: inlineScript
