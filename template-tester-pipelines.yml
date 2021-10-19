@@ -21,8 +21,8 @@ stages:
             displayName: Outer Echo
 
           - template: templates/create-resource-group.yml
-            parameters:
-              azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            # parameters:
+            #   azureServiceConnection: ${{ parameters.azureServiceConnection }}
 
           - task: AzureCLI@2
             displayName: Outer Template Step
