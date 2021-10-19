@@ -2,7 +2,10 @@ parameters:
 - name: azureServiceConnection
   displayName: Azure Service Connection
   type: string
-  default: false
+  values:
+  - DummyConnection
+  - My Azure Connection
+  - Some Random Value
 
 stages:
   - stage: Stage_1
