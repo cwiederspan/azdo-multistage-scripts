@@ -1,8 +1,3 @@
-parameters:
-- name: azureServiceConnection
-  type: string
-  default: false
-
 steps:
   - script: |
         echo "Inner value: ${{ parameters.azureServiceConnection }}"

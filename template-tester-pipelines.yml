@@ -1,3 +1,9 @@
+parameters:
+- name: azureServiceConnection
+  displayName: Azure Service Connection
+  type: string
+  default: false
+
 stages:
   - stage: Stage_1
     displayName: Stage 1
@@ -13,14 +19,14 @@ stages:
 
           - template: templates/create-resource-group.yml
             parameters:
-              azureServiceConnection: $(ServiceConnection)
+              azureServiceConnection: ${{ parameters.azureServiceConnection }}
 
           - task: AzureCLI@2
             displayName: Outer Template Step
             inputs:
-              azureSubscription: $(ServiceConnection)
+              azureSubscription: ${{ parameters.azureServiceConnection }}
               addSpnToEnvironment: true
               scriptType: bash
               scriptLocation: inlineScript
               inlineScript: |
-                echo Here we go: $(ServiceConnection)
+                echo Here we go: ${{ parameters.azureServiceConnection }}
