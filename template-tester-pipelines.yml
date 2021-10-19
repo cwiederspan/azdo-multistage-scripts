@@ -2,6 +2,7 @@ parameters:
 - name: azureServiceConnection
   displayName: Azure Service Connection
   type: string
+  default: DummyConnection
   values:
   - DummyConnection
   - My Azure Connection
@@ -17,12 +18,12 @@ stages:
         displayName: Stage 1 Job 1
         steps:
           - script: |
-              echo "Outer Value: $(MyConnection)"
+              echo "Outer Value: ${{ parameters.azureServiceConnection }}"
             displayName: Outer Echo
 
           - template: templates/create-resource-group.yml
-            # parameters:
-            #   azureServiceConnection: ${{ parameters.azureServiceConnection }}
+            parameters:
+              azureServiceConnection: ${{ parameters.azureServiceConnection }}
 
           - task: AzureCLI@2
             displayName: Outer Template Step
