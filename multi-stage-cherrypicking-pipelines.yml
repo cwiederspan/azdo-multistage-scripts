@@ -1,0 +1,36 @@
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - multi-stage-cherrypicking-pipelines.yml
+
+stages:
+
+- stage: Stage_1
+  displayName: Stage 1
+  jobs:
+  - job: Job_S1_J1
+    displayName: Stage 1 Job 1
+    steps:
+    - displayName: Stage 1 Job 1 Step 1
+      script: |
+        echo "Stage 1, Job 1, Step 1"
+    - displayName: Stage 1 Job 1 Step 2
+      script: |
+        echo "Stage 1, Job 1, Step 2"
+
+- stage: Stage_2
+  displayName: Stage 2
+  jobs:
+  - job: Job_S2_J1
+    displayName: Stage 2 Job 1
+    steps:
+    - displayName: Stage 2 Job 1 Step 1
+      script: |
+        echo "Stage 2, Job 1, Step 1"
+    - displayName: Stage 1 Job 1 Step 2
+      script: |
+        echo "Stage 2, Job 1, Step 2"
+      
