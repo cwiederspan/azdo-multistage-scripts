@@ -2,7 +2,6 @@ parameters:
   - name: 'stages'
     type: object
     default:
-      stages:
       - stage: Stage_1
         displayName: Stage 1
         jobs:
