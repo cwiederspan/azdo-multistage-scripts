@@ -30,7 +30,7 @@ stages:
       - script: |
           echo "This is the dummy stage!"
 
-  ${{each stage in parameters.stages}}:
+- ${{each stage in parameters.stages}}:
   - stage: ${{ stage.stage }} 
     displayName: ${{ stage.displayName}} 
     dependsOn: ${{ stage.dependsOn}} 
