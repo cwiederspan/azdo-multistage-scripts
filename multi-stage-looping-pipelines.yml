@@ -1,12 +1,12 @@
 parameters:
   - name: stages
     type: stageList
-    default: 
-      - stage: Stage_1
-        displayName: Stage 1
+    default:
+      - stage: Dynamic_Stage_1
+        displayName: Dynamic Stage 1
         jobs:
         - job: Job_S1_J1
-          displayName: Stage 1 Job 1
+          displayName: Dynamic Stage 1 Job 1
           steps:
           - script: |
               echo "Stage 1, Job 1, Step 1"
@@ -19,11 +19,9 @@ trigger:
     include:
     - multi-stage-looping-pipelines.yml
 
-
-# stages: ${{ parameters.stages }}
-
-
 stages:
+
+  # Run the pre-defined stages
   - stage: Dummy_Stage
     displayName: Dummy Stage
     jobs:
@@ -33,8 +31,6 @@ stages:
       - script: |
           echo "This is the dummy stage!"
 
+  # Loop through any stages that were passed in
   - ${{ each stage in parameters.stages }}:
     - ${{ stage }}
-      # displayName: ${{ stage.displayName}}
-      # dependsOn: ${{ stage.dependsOn}}
-        
