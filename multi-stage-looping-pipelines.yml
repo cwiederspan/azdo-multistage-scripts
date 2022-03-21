@@ -11,8 +11,6 @@ parameters:
           steps:
           - script: |
               echo "Stage 1, Job 1, Step 1"
-          - script: |
-              echo "Stage 1, Job 1, Step 2"
 
 trigger:
   branches:
@@ -23,8 +21,16 @@ trigger:
     - multi-stage-looping-pipelines.yml
 
 stages:
+  - stage: Dummy_Stage
+    displayName: Dummy Stage
+    jobs:
+    - job: Dummy_Job
+      displayName: Dummy Stage Dummy Job
+      steps:
+      - script: |
+          echo "This is the dummy stage!"
 
-- ${{each stage in parameters.stages}}:
+  ${{each stage in parameters.stages}}:
   - stage: ${{ stage.stage }} 
     displayName: ${{ stage.displayName}} 
     dependsOn: ${{ stage.dependsOn}} 
