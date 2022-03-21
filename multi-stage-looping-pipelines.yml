@@ -1,16 +1,15 @@
 parameters:
   - name: stages
     type: stageList
-    default: []
-
-      # - stage: Stage_1
-      #   displayName: Stage 1
-      #   jobs:
-      #   - job: Job_S1_J1
-      #     displayName: Stage 1 Job 1
-      #     steps:
-      #     - script: |
-      #         echo "Stage 1, Job 1, Step 1"
+    default: 
+      - stage: Stage_1
+        displayName: Stage 1
+        jobs:
+        - job: Job_S1_J1
+          displayName: Stage 1 Job 1
+          steps:
+          - script: |
+              echo "Stage 1, Job 1, Step 1"
 
 trigger:
   branches:
