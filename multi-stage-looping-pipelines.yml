@@ -20,18 +20,22 @@ trigger:
     include:
     - multi-stage-looping-pipelines.yml
 
-stages:
-  - stage: Dummy_Stage
-    displayName: Dummy Stage
-    jobs:
-    - job: Dummy_Job
-      displayName: Dummy Stage Dummy Job
-      steps:
-      - script: |
-          echo "This is the dummy stage!"
 
-  - ${{ each stage in parameters.stages }}:
-    - stage: ${{ stage.stage }}
-      displayName: ${{ stage.displayName}}
-      dependsOn: ${{ stage.dependsOn}}
+stages: ${{ parameters.stages }}
+
+
+# stages:
+  # - stage: Dummy_Stage
+  #   displayName: Dummy Stage
+  #   jobs:
+  #   - job: Dummy_Job
+  #     displayName: Dummy Stage Dummy Job
+  #     steps:
+  #     - script: |
+  #         echo "This is the dummy stage!"
+
+  # - ${{ each stage in parameters.stages }}:
+  #   - stage: ${{ stage.stage }}
+  #     displayName: ${{ stage.displayName}}
+  #     dependsOn: ${{ stage.dependsOn}}
         
