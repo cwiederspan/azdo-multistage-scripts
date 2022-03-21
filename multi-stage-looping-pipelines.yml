@@ -1,0 +1,31 @@
+parameters:
+  - name: 'stages'
+    type: object
+    default:
+      stages:
+      - stage: Stage_1
+        displayName: Stage 1
+        jobs:
+        - job: Job_S1_J1
+          displayName: Stage 1 Job 1
+          steps:
+          - script: |
+              echo "Stage 1, Job 1, Step 1"
+          - script: |
+              echo "Stage 1, Job 1, Step 2"
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - multi-stage-looping-pipelines.yml
+
+stages:
+
+- ${{each stage in parameters.stages}}:
+  - stage: ${{ stage.stage }} 
+    displayName: ${{ stage.displayName}} 
+    dependsOn: ${{ stage.dependsOn}} 
+      
